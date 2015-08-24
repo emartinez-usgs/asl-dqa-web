@@ -102,7 +102,7 @@ function setupLastDate(lastDate){
     }
     else{
         var firstDate = lastDate.split("-");
-        setStartDate(firstDate[0]+"-"+firstDate[1]+"-01");
+        setStartDate(firstDate[0]+"-"+firstDate[1]+"-"+(firstDate[2]-7));
     }
     var qsEndDate;
     if(qsEndDate = getQueryString("edate")){
