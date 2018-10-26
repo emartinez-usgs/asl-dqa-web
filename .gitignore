@@ -6,3 +6,4 @@ settings.txt
 db.config.prod
 db.config.dev
 .idea
+venv
