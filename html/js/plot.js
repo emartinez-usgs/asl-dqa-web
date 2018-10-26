@@ -7,7 +7,8 @@ License: Public Domain
 
 function plotTemplate(id, title){
     var dialog = $("<div id='dia"+id+"' title='"+title+"'></div>").dialog({
-        width: 500,
+        width: 800,
+        height: 550,
         close: function(event, ui){
             $("#dia"+id).remove();
         }
@@ -16,6 +17,7 @@ function plotTemplate(id, title){
 
     dialog.append(plotTarget);
     dialog.append("<button class='button' id='btn"+id+"' value='"+id+"'>Zoom out</button>");
+    dialog.append("<button class='button' style='margin-left:10px;' id='imagebtn"+id+"' value='"+id+"'>View Plot Image</button>");
 
     return dialog;
 }
@@ -46,8 +48,32 @@ function createDialog(id){
 function bindPlot(pid, title){
     if (plotdata[pid].length > 0){ //Check if data was returned, if none was returned don't plot anything.
         $('#html').append(plotTemplate(pid, title));
+        // If max === min then jqplot does strange scaling so force the issue by getting the max and min and manually setting max and min
+        var data = [];
+        $.each(plotdata[pid], function(index, item){data.push(item[1])});
+        // jqplot does some strange things with scaling so fix those areas, mainly if max = min
+        var ymax = Math.max(...data);
+        var ymin = Math.min(...data);
+        var ydelta = ymax - ymin;
+        if(ymax === ymin) {
+            ymax = ymax + 1.0;
+            ymin = ymin - 1.0;
+        }
+        else{
+            ymax = null;
+            ymin = null;
+        }
+        // Set precision of y axis labels dynamically
+        var yprecision = '%.1f';
+        if(ydelta < 1.0)
+            yprecision = '%.3f';
+        else if(ydelta < 10.0)
+            yprecision = '%.2f';
+        // Build plot element
         plots[pid] = $.jqplot('plot'+pid, [plotdata[pid]], {
-            //title: title,  //Title is on the dialog window
+            title: title,
+            width: 800,
+            height: 420,
             cursor: {
                 show: true,
                 zoom: true,
@@ -56,27 +82,35 @@ function bindPlot(pid, title){
 
             highlighter: {
                 show: true,
-                sizeAdjust: 7.5
+                sizeAdjust: 3.0
             },
             axes: {
                 xaxis: {
-                    autoscale:true,
-                    min: (getStartDate('object')+1),
-                    max: (getEndDate('object')+1),
                     tickOptions:{
-                        formatString:'%b %#d, %y',
-                        fontSize: '10pt'
+                        formatString:'%b %#d %Y',
+                        fontSize: '10pt',
+                        angle: -30
                     },
-                    renderer: $.jqplot.DateAxisRenderer
+                    renderer: $.jqplot.DateAxisRenderer,
+                    tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+                    labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
                 },
                 yaxis: {
                     tickOptions:{
                         fontSize: '10pt',
-                        formatString: '%.2f'
+                        formatString: yprecision
                     },
-                    pad: 1.01
+                    pad: 1.05,
+                    min: ymin,
+                    max: ymax
                 }
-            }
+            },
+            series:[
+              {
+                showLine:false,
+                markerOptions: { size: 4, style:'circle' }
+              },
+            ]
         });
 
         //Bind the zoom out button
@@ -86,6 +120,8 @@ function bindPlot(pid, title){
         $('#dia'+pid).bind('dialogresize', function(event, ui) {
             plots[pid].replot( { resetAxes: true } );
         });
+        // Bind plot image dialog to view plot image button
+        $("#imagebtn"+pid).click(function(){createImageDialog(pid, title);});
     }
 
 }
@@ -141,4 +177,19 @@ function parsePlotReturn(data,pid){
             */
         }
     }
+}
+
+// Create and display an image plot dialog where user can right click and save to file or new tab and print
+function createImageDialog(pid, title){
+    var imageDialog = $("<div id='diaImage"+pid+"' title='Image for "+title+"'></div>").dialog({
+        width: 800,
+        height: 550,
+        close: function(event, ui){
+            $("#diaImage"+pid).remove();
+        }
+    });
+    var imagediv = $("<div id='image"+pid+"'></div>");
+    imageDialog.append(imagediv);
+    var image = $('#plot'+pid).jqplotToImageElem();
+    imagediv.append(image);
 }
