@@ -1,0 +1,41 @@
+[
+  {
+    "name": "asl-dqa-web",
+    "organization": "U.S. Geological Survey",
+    "description": "The Data Quality Analyzer (DQA) characterizes and displays seismic station data quality in a quantitative manner",
+    "version": "1.3.0",
+    "status": "Development",
+    "permissions": {
+      "usageType": "openSource",
+      "licenses": [
+        {
+          "name": "CC0 1.0 or Later",
+          "URL": "https://github.com/usgs/asl-dqa-web/blob/master/LICENSE.md"
+        }
+      ]
+    },
+    "homepageURL": "https://usgs.github.io/asl-dqa-web/",
+    "downloadURL": "https://github.com/usgs/asl-dqa-web/archive/master.zip",
+    "disclaimerURL": "https://github.com/usgs/asl-dqa-web/blob/master/LICENSE.md",
+    "repositoryURL": "https://github.com/usgs/asl-dqa-web.git",
+    "vcs": "git",
+    "tags": [
+      "Seismic-Hazards",
+      "ASL",
+      "seismic stations",
+      "seismic data quality"
+    ],
+    "languages": [
+      "Python",
+      "Java"
+    ],
+    "laborHours": 500,
+    "contact": {
+      "name": "James Holland",
+      "email": "jholland@usgs.gov"
+    },
+    "date": {
+      "metadataLastUpdated": "2018-10-26"
+    }
+  }
+]
