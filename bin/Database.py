@@ -1,32 +1,24 @@
-try:
-    import hashlib
-    sha1 = hashlib.sha1
-except:
-    import sha
-    sha1 = sha.new
-
-import base64
 import psycopg2
 import sys
 
+
 class Database:
-    def __init__(self, conString=None):
+    def __init__(self, con_string=None):
         self.db = None
         self.cur = None
-        if conString:
-            self.select_database(conString)
+        if con_string:
+            self.select_database(con_string)
 
     def __del__(self):
         self.close()
 
-# ===== Public Methods ===========================
-    def select_database(self, conString):
+    def select_database(self, con_string):
         self.close()
-        host, user, pwd, db, port = conString.split(',')
+        host, user, pwd, db, port = con_string.split(',')
         try:
             self.db = psycopg2.connect(host=host, user=user, password=pwd, database=db, port=port)
         except psycopg2.Error as e:
-            print "Error in Database.py"
+            print("Error in Database.py" + str(e))
             sys.exit(1)
         self.cur = self.db.cursor()
 
@@ -77,10 +69,3 @@ class Database:
 
     def commit(self):
         self.db.commit()
-
-# ===== Private Methods ==========================
-    def _hash(self, text):
-        sha_obj = sha1()
-        sha_obj.update(text)
-        return base64.urlsafe_b64encode(sha_obj.digest())
-

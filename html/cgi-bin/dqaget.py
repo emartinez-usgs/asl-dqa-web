@@ -1,8 +1,6 @@
 #!/usr/bin/env python
-import os
 import sys
 import time
-from datetime import datetime
 from functools import partial
 import cgi
 import cgitb
@@ -13,23 +11,23 @@ sys.path.insert(0, binPath)
 import Database
 
 formats = ["Human", "CSV"]
-#CSV format should follow RFC 4180 unless another standard is agreed on.
-#http://tools.ietf.org/html/rfc4180
+# CSV format should follow RFC 4180 unless another standard is agreed on.
+# http://tools.ietf.org/html/rfc4180
 
 queries = {
-    "metrics" : """
+    "metrics": """
 SELECT name FROM tblmetric ORDER BY name
 """,
-    "networks" : """
+    "networks": """
 SELECT DISTINCT "tblGroup".name
   FROM tblstation
   JOIN "tblGroup" on tblstation.fkNetworkID = "tblGroup".pkGroupID
   ORDER BY "tblGroup".name
 """,
-    "stations" : """
+    "stations": """
 SELECT name FROM tblstation ORDER BY name
 """,
-    "data" : """
+    "data": """
 SELECT
     to_date(md.date::text, 'J') AS date,
     grp.name AS network,
@@ -61,7 +59,7 @@ ORDER BY
     cha.name,
     Value
 """,
-    "hash" : """
+    "hash": """
 SELECT
     to_date(md.date::text, 'J') AS date,
     grp.name AS network,
@@ -95,7 +93,7 @@ ORDER BY
     cha.name,
     Value
 """,
-    "md5" : """
+    "md5": """
 SELECT date, md5(string_agg(string, ''))
 FROM (
     SELECT
@@ -137,39 +135,45 @@ ORDER BY date
 database_conString = open(binPath+'db.config', 'r').readline()
 database = Database.Database(database_conString)
 
+
 def error(message=None):
     if message is None:
-        print "ERROR"
+        print("ERROR")
     else:
-        print "ERROR:", message
+        print("ERROR: " + message)
     sys.exit(0)
 
+
 def printMetrics(records, fmt):
-    if(fmt == "Human"):
-        print "\r\n".join(map("".join,records))
-    elif(fmt == "CSV"):
-        print ",".join(map("".join,records)) + "\r\n",
+    if fmt == "Human":
+        print("\r\n".join(map("".join, records)))
+    elif fmt == "CSV":
+        print(",".join(map("".join, records)) + "\r\n")
+
 
 def printData(records, fmt):
-    if(fmt == "Human"):
+    if fmt == "Human":
         for row in records:
-            print "%10s %3s %6s %3s %4s %20s %lf" % row
-    elif(fmt == "CSV"):
-        print "\r\n".join(map(", ".join, map( partial(map, str),records))) +"\r\n",
+            print("%10s %3s %6s %3s %4s %20s %lf" % row)
+    elif fmt == "CSV":
+        print("\r\n".join(map(", ".join, map(partial(map, str), records))) + "\r\n")
+
 
 def printHash(records, fmt):
-    if(fmt == "Human"):
+    if fmt == "Human":
         for row in records:
-            print "%10s %3s %6s %3s %4s %20s %15lf %32s" % row
-    elif(fmt == "CSV"):
-        print "\r\n".join(map(", ".join, map( partial(map, str),records))) +"\r\n",
+            print("%10s %3s %6s %3s %4s %20s %15lf %32s" % row)
+    elif fmt == "CSV":
+        print("\r\n".join(map(", ".join, map(partial(map, str), records))) + "\r\n")
+
 
 def printMd5(records, fmt):
-    if(fmt == "Human"):
+    if fmt == "Human":
         for row in records:
-            print "%10s %32s" % row
-    elif(fmt == "CSV"):
-        print "\r\n".join(map(", ".join, map( partial(map, str),records))) +"\r\n",
+            print("%10s %32s" % row)
+    elif fmt == "CSV":
+        print("\r\n".join(map(", ".join, map(partial(map, str), records))) + "\r\n")
+
 
 form = cgi.FieldStorage()
 if "cmd" not in form:
@@ -210,12 +214,12 @@ if "format" in form and form["format"].value in formats:
 else:
     fmt = "Human"
 
-#Set HTTP header based on response type
-if(fmt == "CSV"):
-    print "Content-Type: text/csv"
+# Set HTTP header based on response type
+if fmt == "CSV":
+    print("Content-Type: text/csv")
 else:
-    print "Content-Type: text/plain"
-print ""
+    print("Content-Type: text/plain")
+print("")
 
 db_args = (network, station, metric, location, channel, sdate, edate) 
 if cmd_str == "metrics":
@@ -225,9 +229,8 @@ elif cmd_str == "stations":
 elif cmd_str == "networks":
     printMetrics(database.select(queries["networks"]), fmt)
 elif cmd_str == "data":
-    printData(database.select(queries["data"],db_args), fmt)
+    printData(database.select(queries["data"], db_args), fmt)
 elif cmd_str == "md5":
-    printMd5(database.select(queries["md5"],db_args), fmt)
+    printMd5(database.select(queries["md5"], db_args), fmt)
 elif cmd_str == "hash":
-    printHash(database.select(queries["hash"],db_args), fmt)
-
+    printHash(database.select(queries["hash"], db_args), fmt)
