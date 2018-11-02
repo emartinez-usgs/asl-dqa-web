@@ -3,6 +3,7 @@ This is the frontend that displays data found in a DQA database.
 
 ### Updating to Latest Release from pre 1.3.0 releases
 ```bash
+# As the website owner, NOT root (internally this is asluser)
 # cd into installation directory
 # Remove previous custom configurations
 git stash
