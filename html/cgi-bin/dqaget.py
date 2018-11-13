@@ -133,7 +133,7 @@ ORDER BY date
 }
 
 database_conString = open(binPath+'db.config', 'r').readline()
-database = Database.Database(database_conString)
+database = Database.Database(con_string=database_conString)
 
 
 def error(message=None):
