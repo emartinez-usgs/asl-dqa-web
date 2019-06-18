@@ -4,7 +4,7 @@
     "organization": "U.S. Geological Survey",
     "description": "The Data Quality Analyzer (DQA) characterizes and displays seismic station data quality in a quantitative manner",
     "version": "1.3.0",
-    "status": "Development",
+    "status": "Production",
     "permissions": {
       "usageType": "openSource",
       "licenses": [
@@ -16,7 +16,7 @@
     },
     "homepageURL": "https://usgs.github.io/asl-dqa-web/",
     "downloadURL": "https://github.com/usgs/asl-dqa-web/archive/master.zip",
-    "disclaimerURL": "https://github.com/usgs/asl-dqa-web/blob/master/LICENSE.md",
+    "disclaimerURL": "https://github.com/usgs/asl-dqa-web/blob/master/DISCLAIMER.md",
     "repositoryURL": "https://github.com/usgs/asl-dqa-web.git",
     "vcs": "git",
     "tags": [
@@ -27,7 +27,7 @@
     ],
     "languages": [
       "Python",
-      "Java"
+      "SQL"
     ],
     "laborHours": 500,
     "contact": {
@@ -35,7 +35,7 @@
       "email": "jholland@usgs.gov"
     },
     "date": {
-      "metadataLastUpdated": "2018-10-26"
+      "metadataLastUpdated": "2019-06-18"
     }
   }
 ]
