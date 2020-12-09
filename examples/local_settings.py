@@ -4,9 +4,10 @@ DEBUG = True
 
 SECRET_KEY = 'uwh)=eqffff)f%u%pf^0z)h=7s&cf1_r$bsn!vyz4bmxzo0)77'
 
-ALLOWED_HOSTS = ['vmdevwb.cr.usgs.gov',
-                 'igskgacgvmdevwb.cr.usgs.gov',
-                 'vmdevwb'
+ALLOWED_HOSTS = ['vmdb001',
+                 'vmdb001.gs.doi.net',
+                 'igskgacgvmdb001.gs.doi.net',
+                 'vmweb01'
                  ]
 
 DATABASES = {
@@ -15,7 +16,7 @@ DATABASES = {
         'NAME': 'dqa_prod',
         'USER': 'dqa_read',
         'PASSWORD': 'password',
-        'HOST': 'vmdb001.cr.usgs.gov',
+        'HOST': 'vmdb001',
         'PORT': '5432',
     },
 }
