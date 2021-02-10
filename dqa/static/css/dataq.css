@@ -1,4 +1,8 @@
 
+table.legendtable tbody tr:nth-child(odd){
+  background-color: #f0f0f0;
+}
+
 /*body{font-size:11px;}*/
 
 .ddl {position: relative;}

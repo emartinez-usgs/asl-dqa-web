@@ -15,6 +15,8 @@ var mapGIDtoSIDs = {};
 var mapSIDtoNID = {}; //NID = Network ID
 var mapMIDtoMName = {}; //MID = Metric ID, MName = Metric Name
 var mapMNametoMID = {};
+var mapMNametoMShort = {}; // Metric Name to Metric short description
+var mapMNametoMLong = {}; // Metric Name to Metric long description
 var mapSIDtoGIDs = {};
 var mapCNametoCID = {};
 var mapCIDtoCName = {};
@@ -64,6 +66,7 @@ function getSetupData(){
                 clearTable(); //Clears 1.01 values before populating with proper values
                 fillTable();
                 bindTableActions();
+                buildLegend();
             }
         ); 
     }
@@ -78,13 +81,11 @@ function getSetupData(){
                 clearTable(); //Clears 1.01 values before populating with real values
                 fillTable();
                 bindTableActions();
+                buildLegend();
             }
         );
     }
-
 }
-
-
 
 function parseSetupResponse(response){
     var rows = response.split(/\n/);
@@ -138,6 +139,8 @@ function parseSetupResponse(response){
             case 'M': //M, MetricID, MetricName
                 mapMIDtoMName[parts[1]]=parts[2];
                 mapMNametoMID[parts[2]]=parts[1];
+                mapMNametoMShort[parts[2]]=parts[3];
+                mapMNametoMLong[parts[2]]=parts[4];
                 break;
         }
     }

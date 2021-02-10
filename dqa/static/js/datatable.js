@@ -75,7 +75,7 @@ function buildTable(){
         gridhead.append('<th id="Station">Station</th>');
         gridhead.append('<th id="groups">Groups</th>');
         for( var i = 0; i<metricsSorted.length; i++){
-            gridhead.append('<th id="'+mapMNametoMID[metricsSorted[i]]+'">'+metricsSorted[i]+'</th>');
+            gridhead.append('<th id="' + mapMNametoMID[metricsSorted[i]] + '" title="' + mapMNametoMShort[metricsSorted[i]] + '">' + metricsSorted[i] + '</th>');
         }
         gridhead.append('<th id="aggregate">Aggregate</th>');
 
@@ -101,7 +101,7 @@ function buildTable(){
         gridhead.append('<th id="location">Location</th>');
         gridhead.append('<th id="channel">Channel</th>');
         for( var i = 0; i<metricsSorted.length; i++){
-            gridhead.append('<th id="'+mapMNametoMID[metricsSorted[i]]+'">'+metricsSorted[i]+'</th>');
+            gridhead.append('<th id="' + mapMNametoMID[metricsSorted[i]] + '" title="' + mapMNametoMShort[metricsSorted[i]] + '">' + metricsSorted[i] + '</th>');
         }
         gridhead.append('<th id="aggregate">Aggregate</th>');
 

@@ -18,6 +18,13 @@
             <!-- summary_url links back to summary page, special case if group in URL -->
             {% if group %} var summary_url = "{% url 'summary' group %}"; {% else %} var summary_url = "{% url 'summary_nogroup' %}";{% endif %}
         </script>
+        <div id="legend" title="Metrics Legend" class="ui-widget ui-corner-all">
+            <table id="legendtable" class="legendtable">
+                <thead><tr><th>Metric</th><th>Description</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
         <div id='top' class='ui-widget-header ui-corner-all'>
             <div id='header' class='headerMain'></div>
             <br>

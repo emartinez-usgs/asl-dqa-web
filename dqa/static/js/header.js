@@ -12,8 +12,15 @@ function setupHeader(){
     );
 
     $("#btnLegend").on("click",function(){
-        alert("Legend is not done yet");
+        $("#legend").dialog( "open" );
     });
+    $("#legend").dialog({
+        autoOpen: false,
+        height: 650,
+        width: 1000,
+        modal: true
+    });
+
     if(pageType == "station"){
         header.append(
             "<button type='button' id='btnSummary'>Summary</button>"
@@ -55,4 +62,11 @@ function setStationTitle(){
     var newTitle = networkID + "-" + stationID;
     $("#spnTitle").text(newTitle);
     document.title = "DQA "+newTitle;
+}
+
+function buildLegend(){
+    var sorted_keys = Object.keys(mapMNametoMLong).sort()
+    for (var i=0; i<sorted_keys.length; i++){
+        $("#legendtable tbody").append('<tr><td>' + sorted_keys[i] + '</td><td>' + mapMNametoMLong[sorted_keys[i]] + '</td></tr>')
+    }
 }
