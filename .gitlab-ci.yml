@@ -28,3 +28,16 @@ test:latest:
   script:
     - source venv/bin/activate
     - python manage.py test --settings dqa.settings_ci
+
+test:safety:
+  image: asl:latest
+  
+  script:
+    - source venv/bin/activate
+    - pip freeze > pip_freeze.txt
+    - deactivate
+    # Need to install outside the venv to prevent this install patching actual issues.
+    - pip install safety
+    # Fix certifi certs so updated insecurity DB can be downloaded.
+    - /bin/updatePythonCert.bash
+    - echo pip_freeze.txt | safety check --stdin
