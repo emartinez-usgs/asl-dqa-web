@@ -139,8 +139,8 @@ function parseSetupResponse(response){
             case 'M': //M, MetricID, MetricName
                 mapMIDtoMName[parts[1]]=parts[2];
                 mapMNametoMID[parts[2]]=parts[1];
-                mapMNametoMShort[parts[2]]=parts[3];
-                mapMNametoMLong[parts[2]]=parts[4];
+                mapMNametoMShort[parts[2]]=parts[3].substring(1, parts[3].length - 1); // Remove quotes
+                mapMNametoMLong[parts[2]]=parts[4].substring(1, parts[4].length - 1); // Remove quotes
                 break;
         }
     }
