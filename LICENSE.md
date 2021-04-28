@@ -65,3 +65,6 @@ License:&nbsp;&nbsp;&nbsp;&nbsp;MIT License
 ###### naturalSort.js  
 Copyright:&nbsp;&nbsp;Jim Palmer  
 License:&nbsp;&nbsp;&nbsp;&nbsp;MIT License  
+###### jQuery.csv.js  
+Copyright:&nbsp;&nbsp;Evan Plaice  
+License:&nbsp;&nbsp;&nbsp;&nbsp;MIT License  
