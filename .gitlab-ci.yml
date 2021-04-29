@@ -30,6 +30,7 @@ test:safety:
   script:
     - source venv/bin/activate
     - pip freeze > pip_freeze.txt
+    - cat pip_freeze.txt
     - deactivate
     # Need to install outside the venv to prevent this install patching actual issues.
     - pip install safety
