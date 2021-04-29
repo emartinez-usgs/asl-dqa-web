@@ -3,6 +3,9 @@ variables:
 
 
 before_script:
+  - mkdir -p ~/.config/pip
+  - echo "[global]" > ~/.config/pip/pip.config
+  - echo "cert = /etc/ssl/certs/ca-certificates.crt" >> ~/.config/pip/pip.config
   - ./setup.bash
   - source venv/bin/activate
   - python -V
