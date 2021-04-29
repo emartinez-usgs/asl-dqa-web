@@ -1,12 +1,6 @@
 variables:
   POSTGRES_HOST_AUTH_METHOD: trust
 
-# This folder is cached between builds
-# http://docs.gitlab.com/ce/ci/yaml/README.html#cache
-cache:
-  paths:
-    - ~/.cache/pip/
-
 
 before_script:
   - ./setup.bash
