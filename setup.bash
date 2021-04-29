@@ -12,6 +12,6 @@ virtualenv -p python3 ${VENV}
 
 # Update PYTHON modules from requirements.txt, make sure PIP is up-to-date
 source ${VENV}/bin/activate
-pip install --upgrade pip --cert=/usr/share/ca-certificates/extra/DOIRootCA2.cer
-pip install -r requirements.txt --cert=/usr/share/ca-certificates/extra/DOIRootCA2.cer
+pip install --upgrade pip
+pip install -r requirements.txt
 deactivate
