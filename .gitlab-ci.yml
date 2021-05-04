@@ -9,7 +9,7 @@ before_script:
   - python -V
 
 test:1804:
-  image: asl:1804
+  image: code.chs.usgs.gov:5001/asl/asl-main/asl:1804
   services:
     - postgres:12.2-alpine
   script:
@@ -17,7 +17,7 @@ test:1804:
     - python manage.py test --settings dqa.settings_ci
 
 test:latest:
-  image: asl:latest
+  image: code.chs.usgs.gov:5001/asl/asl-main/asl:latest
   services:
     - postgres:latest
   script:
@@ -25,7 +25,7 @@ test:latest:
     - python manage.py test --settings dqa.settings_ci
 
 test:safety:
-  image: asl:latest
+  image: code.chs.usgs.gov:5001/asl/asl-main/asl:latest
   
   script:
     - source venv/bin/activate
